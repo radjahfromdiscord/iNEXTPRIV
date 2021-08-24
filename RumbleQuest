@@ -1,4 +1,4 @@
---made by radjah#9900 hi yo sup
+-- hi radjah#9900 here sup
 
 local ui_options = {
 	main_color = Color3.fromRGB(41, 74, 122),
@@ -2184,11 +2184,10 @@ do -- Example UI
     Switch:Set(false)
 
     local Switch = Farm:AddSwitch("Kill Aura", function(bool)
-        getgenv().Busje = false
-        getgenv().Busje = bool
-        
+        _G.bosman = false
+        _G.bosman = bool
+
         if bool then
-            wait()
             local function getWID()
                 for i,v in pairs(game.Players.LocalPlayer.Character:GetChildren()) do
                     if v.Name~="HumanoidRootPart" and v.Name~="LeftHand" and v.Name~="LeftLowerArm" and v.Name~="LeftUpperArm" and v.Name~="RightHand" and v.Name~="RightLowerArm" and v.Name~="RightUpperArm" and v.Name~="UpperTorso" and v.Name~="LeftFoot" and v.Name~="LeftLowerLeg" and v.Name~="LeftUpperLeg" and v.Name~="RightFoot" and v.Name~="RightLowerLeg" and v.Name~="RightUpperLeg" and v.Name~="LowerTorso" and v.Name~="Humanoid" and v.Name~="Head" and v.Name~="Health" and v.Name~="Animate" and v.Name~="ArmorHead" and v.Name~="ArmorTorso" and v.Name~="ArmorChest" and v.Name~="ArmorLegs" and v.Name~="PlayerOverheadGui" and v.ClassName=="Model" and v.ClassName~="Folder" and v.ClassName~="Part" and v.ClassName~="MeshPart" then
@@ -2198,20 +2197,16 @@ do -- Example UI
             end
             
             spawn(function()
-                poop = game:GetService("RunService").RenderStepped:Connect(function()
-                    wait(0.1)
+                while _G.bosman == true do wait()
+                    wait()
                     getWID()
                     for i,enemy in pairs(game.Workspace.Enemies:GetChildren()) do
                         if (game.Players.LocalPlayer.Character:WaitForChild("HumanoidRootPart").Position-enemy:WaitForChild("HumanoidRootPart").Position).Magnitude<=100 then
                             game.ReplicatedStorage.Modules.Network.RemoteEvent:FireServer("WeaponDamage",weaponID,enemy:WaitForChild("Humanoid"))
+                        end
                     end
                 end
-                end)
-            end)                
-        end
-
-        if not bool then
-            poop:Disconnect()
+            end)
         end
     end)
     Switch:Set(false)
